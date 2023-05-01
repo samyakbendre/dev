@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+<title>{% block title %}Leaverequests{% endblock %}</title>
+{% block extra_content %}
+{% endblock %}
+
+{% block css %}
+    .push {
+        margin-left:320px;
+    }
+    btn {
+        background-color: #5DC2AE;
+        color: #5DC2AE;
+    }
+    #leave {
+        background-color: #5DC2AE;
+        font-weight: bold;
+         
+     }
+  
+      #leaveid {
+         color:white;
+     } 
+     
+     .homelink {
+         color: black;
+         opacity: 0.7;
+         font-weight:normal;
+         
+     }
+     .home{
+        background-color: #DCF9F3;
+        color: rgb(14, 5, 5);
+    }
+    .home:hover {
+        background-color: #DCF9F3;
+        color: white;
+    }
+{% endblock %}
+
+{% block content %}
+    <div class="push">
+        <h1>Leave Requests</h1>
+        {% for data in datas %}
+        {% if data.Emp.manager == request.user.id %}
+            {% if data.Is_approved == None %}
+    <form action="" method="POST">
+        <table class="table">
+            <tr scope="col">
+                <th scope="col">
+                    Employee_name
+                </th>
+                <th scope="col">
+                    Leave_type
+                </th scope="col">
+                <th scope="col">
+                    Full_details
+                </th>
+            </tr>
+
+            <tr  scope="row">
+                <td>{{data.Emp.email}}</td>
+                <td>{{data.Leave_type}}</td>
+                <td><a href="{% url 'llpractise' data.id %}" class="btn btn-success">click here</a></td>
+            </tr>
+                
+            </th>
+        </table>
+        <br>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </form>
+    </div>
+{% endblock %}
+    
+    

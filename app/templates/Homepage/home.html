@@ -1,0 +1,269 @@
+
+{% extends 'base.html'%}
+{% load tz %} 
+{% block title %}Homepage{% endblock %}
+
+{% block extra_content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block css %}
+    
+.main{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60vw;
+    margin: 100px 100px 100px 400px;
+    /* border: 1px solid; */
+    z-index: 2;
+}
+.right{
+    border: 1px solid;
+    width: 300px;
+    height: 390px;
+    border-radius: 15px;
+    padding: 20px 10px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-color: #5DC2AE;
+    border-width: 2px;
+    margin-right: 30px;
+}
+.left{
+    width: 415px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* margin: 100px 100px 100px 300px; */
+}
+span{
+    color: #5DC2AE;
+    font-weight: bold;
+}
+.inter-box{
+    display: flex;
+    flex-direction: column;
+    background-color: #DCF9F3;
+    border-radius: 21px;
+    
+}
+.date{
+    color: grey;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+.sign-out-btn{
+    margin-left: 290px;
+    margin-bottom: 10px;
+    background-color: #5DC2AE;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 15px 10px 15px;
+    transition: opacity 0.15s;
+}
+.sign-out-btn:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.sign-time{
+    padding-left: 15px;
+}
+.heading-task{
+    background-color: #5DC2AE;
+    color: white;
+    height: 50px;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    padding: 20px 10px 15px 20px;
+    font-size: 20px;
+}
+.task{
+    border-radius: 21px;
+    padding-bottom: 20px;
+
+}
+.rgl{
+    border: 1px solid #5DC2AE;
+    padding: 10px 10px 10px 10px;
+    border-bottom-left-radius: 21px;
+    border-bottom-right-radius: 21px;
+}
+.btnn{
+    background-color: #5DC2AE;
+    border: none;
+    color: white;
+    padding: 5px 5px 5px 5px;
+    font-size: 9px;
+    display: inline-block;
+    border-radius: 9px;
+    font-weight: 700;
+    transition: opacity 0.15s;
+    text-decoration: none;
+}
+.btnn:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+.text{
+    display: inline-block;
+    font-size: 0.9rem;
+}
+.leave-cls{
+    border-top: 1px solid #5DC2AE;
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+    margin: 15px 10px 10px 10px;
+    
+}
+.mul-holidays{
+    border: 1.6px solid #5DC2AE;
+    border-radius: 10px;
+    padding: 5px 3px 3px 5px;
+    font-weight: 550;
+    justify-content: center;
+    align-items: center;
+    line-height: 20px;
+    background-color: #F6FFFD;
+}
+.right-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+    padding: 2px 2px 2px 2px;
+}
+.upcoming{
+    display: inline-block;
+}
+.arrow{
+    display: inline-block;
+}
+.hol-name{
+    font-weight: bold;
+    color: #5DC2AE;
+}
+.arrow-png{
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    margin-right: 20px;
+    padding: 2px 2px 2px 2px;
+    color: #5DC2AE;
+}
+.img-ar{
+    height: 10px;
+    color: #5DC2AE;
+}
+.sign-in{
+    display: flex;
+    flex-direction: column;
+}
+.logout-btn{
+    text-decoration: none;
+    background-color: #5DC2AE;
+    color: white;
+    padding: 0.9rem;
+    margin-top: 3rem;
+    border-radius: 1rem;
+}
+#messages-info{
+    font-size: 5rem;
+}
+{% endblock %}
+    
+{% block content %}
+{% load static %}
+<div class="main">
+    <div class="left">
+        <div class="sign-in">
+            <p>Hello <span>{{username}},</span></p>
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" role="alert">
+                {{ message }}
+                </div>
+            {% endfor %}
+            <br>
+            <div class="inter-box">
+                <p class="date">{% now "d F Y" %}</p>
+                {% timezone "Asia/Kolkata" %}
+                <p class="sign-time">{% now "G:i:s" %}</p>
+                {% endtimezone %}
+                {% if signin == "null" %}
+                    <form action="{% url 'sign_inn' %}" method="POST">
+                        {% csrf_token %}    
+                        <!-- <button  class="sign-out-btn" id="button1" onclick="SwitchButtons('button1');"  >Sign In</button> -->
+                        <button  class="sign-out-btn" id="button1" " >Sign In</button>
+                    </form>  
+                {% else %}
+                    <form action="{% url 'sign_outt' %}" method="POST">
+                        {% csrf_token %}
+                        <!-- <button  class="sign-out-btn" id="button2" onclick="SwitchButtons('button2');"   style='display:none;'>Sign out</button> -->
+                        <button  class="sign-out-btn" id="button2" >Sign out</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% if perms.app.view_employeerequestpermission %}
+            <div class="task">
+                <div class="heading-task">Tasks</div>
+                <div class="rgl">
+                    {% if regdata %}
+                        {% for x in regdata %}
+                            <div>
+                                <p class="text">Regularization Request from {{x.emp.first_name}} {{x.emp.last_name}} - </p>
+                                <a class="btnn" href="{% url 'employeerequest' %}">Click Here</a>
+                            </div>                             
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <p class="text">No Regularization request pending.</p>
+                        </div>
+                    {% endif %}                       
+                    <div class="leave-cls">
+                        {% if count != 0 %}
+                            {% for leave in leaves %}
+                                {% if request.user.id == leave.Emp.manager %}
+                                    <p class="text">Leave Request from {{ leave.Emp.first_name }} {{leave.Emp.last_name}} - </p>
+                                    <a  class="btnn" href="{% url 'employeerequest' %}">click Here</a>
+                                
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text">No Leave request pending. </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="right">
+        <div class="heading">
+            <div class="upcoming">Upcoming<span> Holidays</span></div>
+            <div class="arrow-png"><a href="{% url 'empholidayview' %}"><img class="img-ar" src="{% static 'arrow.png' %}" alt="img"></a></div>
+        </div>
+        {% for x in holidays %}
+            <div class="right-box">
+                <div class="mul-holidays"><p>{{x.date}}</p><p class="hol-name">{{x.occasion}}</p></div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+<div><a class="logout-btn" href="{% url 'logout' %}">Logout</a></div>
+
+
+{% endblock %}
+   
+    
+

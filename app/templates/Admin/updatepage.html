@@ -1,0 +1,10 @@
+<h1>Update Status</h1>
+
+<form action="updaterecord/{{alluser.id}}" method="POST">
+    {% csrf_token %}
+    Status: <br>
+    <input type="text" name="role">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br>
+</form>

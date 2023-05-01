@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}{% endblock %}HRattendance</title>
+{% block extra_content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %} 
+
+{% block css %}
+.attendance {
+    background-color: rgb(243, 66, 66);
+}
+.push {
+    margin-left:320px;
+}
+
+#emplattendances {
+    background-color: #5DC2AE;
+    font-weight: bold;
+     
+ }
+ 
+ 
+ #emplattendancess {   
+     color:white;
+ }
+
+.homelink {
+    color: black;
+    opacity: 0.7;
+    font-weight:normal;
+    
+}
+.home{
+    background-color: #DCF9F3;
+    color: rgb(14, 5, 5);
+}
+.home:hover {
+    background-color: #DCF9F3;
+    color: white;
+}
+
+.containerr{
+    margin-top: 100px;
+    margin-left: 50px;  
+}
+{% endblock %}
+
+{% block content %}
+
+    <div class="push">
+        <!-- <p>number of days present    {{present}}</p> -->
+   <!-- <p>number of leaves taken {{count}}</p> -->
+<div class="containerr">
+    <form action="/hremployeeattendance/" method="POST">
+        {% csrf_token %}
+        <label for="name">Email: </label>
+        <select name="email" id="name_emp">
+            {% for x in data %}
+                <option value="{{x.email}}">{{x.email}}</option>
+            {% endfor %}
+        </select>
+        <label for="month">Month</label>
+        <select name="month" id="month-number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        </select>
+    
+        <label for="year">Year</label>
+        <select name="year" id="year_number">
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+        </select>
+        <input type="submit" class="btn btn-dark" value="Submit"><br><br>
+        <br>
+    </form>
+  
+   <div claas="attendance container">
+    <p><strong>Month :</strong> {{month}}</p>
+    <p><strong>Year: </strong> {{year}}</p>
+    <p><strong>User Email :</strong> {{email}}</p>
+    <p><strong>Total Number of days present : </strong> {{present}}</p>
+    <p><strong>Total Casual Leave taken : </strong> {{ccount}} </p>
+    <p><strong>Casual Leave Dates : </strong> {% for i in c_list %} {{i}} {%endfor%},</p>
+    <p><strong>Total Paternity taken : </strong>{% if pcount %}{{pcount}} {% else %} None {% endif %}</p>
+    <p><strong>Paternity Leave Dates : </strong>{% if p_list%} {% for i in p_list %} {{i}} {%endfor%},{% else %}None{% endif %}</p>
+   </div>
+
+   <!-- <form method="post" action="{% url 'downloadfile' %}">
+    {% csrf_token %}
+    <input type="hidden" name="content" value="Month = {{month}}<br>Year = {{year}}<br>User Email= {{email}}<br>Total Number of days present = {{present}}<br>Total Casual Leave Taken = {{ccount}}<br>Casual Leave Dates = {% for i in c_list %}{{i}}{% endfor %},<br>Total Paternity taken = {% if pcount %}{{pcount}}{% else %} None {% endif %}<br>Paternity Leave Dates={% if p_list %}{% for i in p_list %} {{i}} {% endfor%},{% else %}None{% endif %}">
+
+    <button type="submit">Download</button> -->
+    <br>
+    <form method="post" action="{% url 'downloadfile' %}">
+        {% csrf_token %}
+        <input type="hidden" name="content1" value="Month = {{month}}">
+        <input type="hidden" name="content2" value="Year = {{year}}">
+        <input type="hidden" name="content3" value="User Email = {{email}}">
+        <input type="hidden" name="content4" value="Total number of Days Present = {{present}}">
+        <input type="hidden" name="content5" value="Casual Leave Dates = {% if c_list %} {% for i in c_list %} {{i}} {% endfor %} {% else %} None {% endif %}">
+        <input type="hidden" name="content6" value="Total Paternity taken = {% if pcount %}{{pcount}}{% else %} None {% endif %}">
+        <input type="hidden" name="content7" value="Paternity Leave Dates={% if p_list %}{% for i in p_list %} {{i}} {% endfor%} {% else %}None{% endif %}">
+        <button type="submit" class="btn btn-dark">Download Information</button>
+</div>
+{% endblock %}
+
+
+   
+   
+    

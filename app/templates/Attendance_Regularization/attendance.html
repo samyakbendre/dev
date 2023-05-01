@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+<title>{% block title %} Document {% endblock %}</title>
+
+{% block css %}
+
+
+.sat,.sun{
+background-color:rgb(207, 199, 199) !important;
+border: black solid 1px;
+
+}
+.special-day{
+background-color:lightgreen;
+border: black solid 1px;
+
+}
+.leave{
+  background-color:red !important;
+  border: black solid 1px;
+  
+  }
+.holiday{
+background-color:rgb(0, 153, 255) !important;
+border: black solid 1px;
+
+}
+.absent{
+background-color:rgb(176, 50, 172);
+border: black solid 1px;
+}
+
+table{
+margin: 23px;
+padding: 35px;
+}
+td{
+margin:24px;
+padding:23px;
+border:black solid 1px;
+}
+
+.para{
+margin-left: 160px;
+}
+
+
+.boxe {
+float: left;
+height: 20px;
+width: 20px;
+margin-bottom: 15px;
+border: 1px solid black;
+clear: both;
+margin-left: 120px;
+}
+
+.big-container {
+  margin-left:280px;
+  display:flex;
+  flex-direction:row;
+
+}
+
+.calculator {
+  
+ 
+}
+
+
+.icontainer {
+  
+ 
+  
+  
+} 
+.iicontainer {
+  margin-left:300px;
+  margin-top:40px;
+  
+ 
+}
+#attendance {
+  background-color: #5DC2AE;
+  font-weight: bold;
+   
+}
+
+
+#atid {   
+   color:white;
+}
+
+.homelink {
+  color: black;
+  opacity: 0.7;
+  font-weight:normal;
+  
+}
+.home{
+  background-color: #DCF9F3;
+  color: rgb(14, 5, 5);
+}
+.home:hover {
+  background-color: #DCF9F3;
+  color: white;
+}
+
+
+
+
+
+{% endblock %}
+
+
+{% block content %}
+<div class="push">
+  <div class="iicontainer">
+    <form action="/empattendance/"  method="POST">
+      {% csrf_token %}
+      <label for="month">month</label>
+      <select name="month" id="month-number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+  
+      <label for="year">year</label>
+      <select name="year" id="year_number">
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+  
+  
+  </div>
+  
+  <div class="big-container">
+  
+    <div class="calculator">
+      {{cal|safe}}
+    </div>
+    
+    <div class="icontainer">
+      <div >
+        <p class="boxe" style="border: 10px solid rgb(0, 153, 255); width: 20px;"></p>
+        <p class="para"> Holiday</p>
+      </div>
+      <p class="boxe" style="border: 10px solid rgb(207, 199, 199); width: 20px;"></p>
+      <p class="para">Weekend</p>
+    
+      <p class="boxe" style="border: 10px solid lightgreen; width: 20px;"></p>
+      <p class="para">Present</p>
+    
+      <p class="boxe" style="border: 10px solid rgb(176, 50, 172); width: 20px;"></p>
+      <p class="para">Absent</p>
+
+      <p class="boxe" style="border: 10px solid red; width: 20px;"></p>
+      <p class="para">Leave</p>
+      
+    </div> 
+    
+  
+   
+    
+  </div>
+  
+  
+</div>
+
+
+{% endblock %}

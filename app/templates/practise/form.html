@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+<title>{% block title %}Leave{% endblock %}</title>
+{% block extra_content %}
+{% load crispy_forms_tags %}
+{% endblock %}
+
+{% block css %}
+.push {
+    margin-left:320px;
+}
+#leave {
+    background-color: #5DC2AE;
+    font-weight: bold;
+     
+ }
+
+  #leaveid {
+     color:white;
+ } 
+ 
+ .homelink {
+     color: black;
+     opacity: 0.7;
+     font-weight:normal;
+     
+ }
+ .home{
+    background-color: #DCF9F3;
+    color: rgb(14, 5, 5);
+}
+.home:hover {
+    background-color: #DCF9F3;
+    color: white;
+}
+{% endblock %}
+
+{% block content %}
+<div class="push">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    
+    {% endfor %}
+    {% endif %}
+    
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Apply leave</legend>
+                {{ forms|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+        <!-- </form>
+    <h1>Leave application</h1>
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ forms.as_p }}
+            <input type="submit">
+        </form> -->
+        </div>
+</div>
+{% endblock %}
+
+    
+
